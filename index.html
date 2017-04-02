@@ -10,27 +10,38 @@
 	
 	<script src="resources/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script src="resources/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="resources/viz.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
 	<div id="main">
 		<div id="left">
-			<div id="graphRaw">some text</div>
+			<div id="graphRaw">dimension 4
+1 2 3
+2 s0 3
+s0 s1 3
+s0 s2 4</div>
 		</div>
 		<div id="right">
 			<div id="graphParsingErrors">Parsing errors</div>
-			<div id="graphDot">Graph in dot format</div>
-			<div id="graphImageContainer">Image to be displayed here</div>
+			<div id="graphImage"></div><br />
+			<div id="debug"></div>
 		</div>
 	</div>
 </body>
 
 <script type="text/javascript">
-var editor = ace.edit("graphRaw");
+var maximalNumberVertices = 20;
+var updateGraphTimeout = 1000;
 
+var editor = ace.edit("graphRaw");
+var timerEdit;
 editor.on("change", function() {
-  updateGraph();
+	clearTimeout( timerEdit );
+	timerEdit = setTimeout(updateGraph, updateGraphTimeout);
 });
+
+updateGraph();
 </script>
 
 </html>

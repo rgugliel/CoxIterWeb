@@ -19,12 +19,15 @@
 {
 	border: 1px solid #F00; 
 
-	margin-left: 5px;
-	margin-right: 10px;
-
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-bottom: 5px;
+	
 	padding: 5px; 
 
 	background-color: #FFC0C0; 
 
-	color: #9A0000; 
+	color: #9A0000;
+	
+	display: none;
 }
