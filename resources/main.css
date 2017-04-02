@@ -1,11 +1,9 @@
 #left {
-	border: 1px solid red;
 	float: left;
 	padding: 5px;
 }
 
 #right {
-	border: 1px solid green;
 	padding: 5px;
 	float: left;
 }
