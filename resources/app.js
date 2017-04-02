@@ -79,28 +79,6 @@ function updateGraph()
 			return parsingError(i, "parse");
 	}
 	
-	/*
-	 * TODO
-	debugContent += "<br />Vertices: <br /> ";
-	for (var idx in labelsToIndices)
-		debugContent += idx + ", ";
-		
-	debugContent += "<br />Vertices: <br /> ";
-	for (var i = 0; i < indicesToLabels.length; i++)
-		debugContent += indicesToLabels[i] + ", ";
-		
-	debugContent += "<br />Matrix: <br /> ";
-	for (var r = 0; r < coxeterMatrix.length; r++ )
-	{
-		for (var c = 0; c < coxeterMatrix.length; c++ )
-			debugContent += coxeterMatrix[r][c] + " ";
-		
-		debugContent += "<br />";
-	}
-	
-	document.getElementById("debug").innerHTML = debugContent;*/
-	
-	
 	document.getElementById("graphParsingErrors").style.display = "none";
 	
 	if (verticesCount > 0)
