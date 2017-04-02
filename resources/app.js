@@ -1,4 +1,5 @@
 var coxeterMatrix = [];
+var dimension = 0;
 
 function updateGraph()
 {
@@ -9,11 +10,11 @@ function updateGraph()
 	// -------------------------------------
 	// Initializations
 	var dimensionSet = false;
-	var dimension = 0;
 	var labelsToIndices = new Object();
 	var indicesToLabels = [];
 	var verticesCount = 0;
 	coxeterMatrix = [];
+	dimension = 0;
 	
 	// -------------------------------------
 	// Parsing
@@ -119,6 +120,21 @@ function drawGraph(verticesCount, indicesToLabels)
 		
 	var result = Viz(strGraph);
 	document.getElementById("graphImage").innerHTML = result;
+}
+
+function computeInvariants()
+{
+	$.ajax({
+		url: "resources/computeInvariants.php",
+		type: "GET",
+		data: "test",
+		success: function(result) {
+			// TODO;
+		},
+		error: function(errorData) { 
+		// TODO
+		}
+	});
 }
 
 /*! \fn addEdge
