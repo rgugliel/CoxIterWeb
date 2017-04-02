@@ -14,3 +14,17 @@
 	width: 500px;
 	height: 400px;
 }
+
+#graphParsingErrors
+{
+	border: 1px solid #F00; 
+
+	margin-left: 5px;
+	margin-right: 10px;
+
+	padding: 5px; 
+
+	background-color: #FFC0C0; 
+
+	color: #9A0000; 
+}
