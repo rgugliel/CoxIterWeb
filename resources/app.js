@@ -66,6 +66,8 @@ function updateGraph()
 			
 			if (weight < 0)
 				return parsingError(i, "weight negative");
+			else if (weight > 255)
+				return parsingError(i, "weight maximal");
 				
 			str = addEdge(vertex1, vertex2, weight);
 			if (str != "")
@@ -197,6 +199,8 @@ function parsingError(rowIndex, errorCode)
 		strError += "The number of vertices is limited to " + maximalNumberVertices;
 	else if (errorCode ==  "vertices same")
 		strError += "The specified vertices are the same";
+	else if (errorCode ==  "weight maximal")
+		strError += "The weight should less than 256";
 	else if (errorCode ==  "weight negative")
 		strError += "The weight should be non-negative";
 	else
