@@ -23,6 +23,9 @@ class App
 		
 		bool bCreateCoxeterMatrix(int argc, char **argv);
 		string get_strError() const;
+		
+	private:
+		bool addEdge(const unsigned int& iV1, const unsigned int&  iV2, const unsigned int& iWeight);
 };
 
 #endif

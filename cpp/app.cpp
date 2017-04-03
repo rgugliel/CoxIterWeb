@@ -27,12 +27,12 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 	unsigned int iSource, iCount, j;
 	vector<string> strPiecesTemp;
 	
+	// TODO: check max vertices
+	
 	for (unsigned int i(0); i < iPiecesCount; i++)
 	{
-		cout << "Reading: #" << strPieces[i] << "#" << endl;
 		if (regexp.preg_match_all( "^\\[([[:digit:]]{1,4})(,\\[[[:digit:]]{1,4},[[:digit:]]{1,4}\\])+\\]$", strPieces[i], regexpRes)) // TODO: 4 --> option
 		{
-			cout << "Row: " << regexpRes[0][0] << endl;
 			iSource = stoi(regexpRes[1][0]);
 			
 			if (regexp.preg_match_all( "\\[([[:digit:]]{1,4},[[:digit:]]{1,4})\\]", strPieces[i], regexpRes))
@@ -43,29 +43,46 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 					explode(",", regexpRes[1][j], strPiecesTemp);
 					if (strPiecesTemp.size() != 2)
 					{
-						cout << "ERROR: " << regexpRes[1][j] << endl; // TODO
 						strError = "graph invalid format";
 						return false;
 					}
 					
-					cout << iSource << " - " << stoi(strPiecesTemp[0]) << ": " << stoi(strPiecesTemp[1]) << endl;
-				}
-				
-				for (unsigned int r(0); r < regexpRes.size(); r++)
-				{
-					for (unsigned c(0); c < regexpRes[r].size(); c++)
-						cout << "[" << r << "][" << c << "]=" << regexpRes[r][c] << endl;
+					if (!addEdge(iSource, stoi(strPiecesTemp[0]), stoi(strPiecesTemp[1])))
+						return false;
 				}
 			}
-			else
-				cout << "Not found" << endl;
-			
 		}
 		else if (regexp.preg_match_all( "dimension=([[:digit:]]{1,2})", strPieces[i], regexpRes))
 			iDimension = stoi(regexpRes[1][0]);
-			
-		cout << endl;
 	}
+	
+	return true;
+}
+
+bool App::addEdge(const unsigned int& iV1, const unsigned int&  iV2, const unsigned int& iWeight)
+{
+	unsigned int iMax(max(iV1, iV2));
+	if (iVerticesCount <= iMax) // We have to update matrix' size
+	{
+		for (unsigned int r(0); r < iVerticesCount; r++ )
+		{
+			for (unsigned int c(iVerticesCount); c <= iMax; c++)
+				iCoxeterMatrix[r].push_back(2);
+		}
+		
+		vector<unsigned int> iRow(iMax + 1, 2);
+		for (unsigned int r(iVerticesCount); r <= iMax; r++)
+			iCoxeterMatrix.push_back(iRow);
+	}
+
+	if (iCoxeterMatrix[iV1][iV2] != 2 && iCoxeterMatrix[iV1][iV2] != iWeight)
+	{
+		strError = "edge weight multiple";
+		return false;
+	}
+	
+	iCoxeterMatrix[iV1][iV2] = iCoxeterMatrix[iV2][iV1] = iWeight;
+	iVerticesCount = iCoxeterMatrix.size();
 	
 	return true;
 }
