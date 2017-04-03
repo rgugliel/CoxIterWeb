@@ -140,14 +140,14 @@ function computeInvariants()
 		}
 		
 		if (strNeighbours != "")
-			strGraph += (strGraph != "" ? "," : "") + "[" + c + "," + strNeighbours + "]";
+			strGraph += (strGraph != "" ? ";" : "") + "[" + c + "," + strNeighbours + "]";
 	}
 	
 	// ------------------------------------------
 	// Let's go
 	$.ajax({
 		url: "resources/computeInvariants.php",
-		type: "GET",
+		type: "POST",
 		data: "graph=" + strGraph + "&dimension=" + dimension + "&verticesCount=" + verticesCount,
 		success: function(result) {
 			// TODO;
