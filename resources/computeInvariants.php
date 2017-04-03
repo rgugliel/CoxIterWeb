@@ -8,6 +8,7 @@ function main()
 	$mDigits = $config['verticesMaximalDigits'];	
 
 	$graph = isset($_POST['graph']) ? trim($_POST['graph']) : '';
+	$dimension = isset($_POST['dimension']) ? (int)$_POST['dimension'] : 0;
 	
 	if (empty($graph))
 		return '<error>graph empty</error>';
@@ -24,7 +25,7 @@ function main()
                 	return '<error>graph format</error>';
 	}
 
-	exec('../' . $config['relativePathToExecutable'] . '/coxiterweb "' . $graph . '"', $output);
+	exec('../' . $config['relativePathToExecutable'] . '/coxiterweb "' . $graph . ';dimension=' . $dimension . '"', $output);
 	echo implode("\n", $output);
 }
 

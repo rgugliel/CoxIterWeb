@@ -21,21 +21,20 @@ along with AlVin. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <iostream>
-#include <string>
+
+#include "app.h"
 
 using namespace std;
 
 int main(int argc, char **argv)
 {
-	cout << "Hello world!" << endl;
-	cout << "#lines: " << argc << endl;
-	string strTemp("");
-	for( int i = 0; i < argc; ++i ) 
+	App app;
+	
+	if (!app.bCreateCoxeterMatrix(argc, argv))
 	{
-		strTemp = std::string( argv[i] );
+		cout << "<error>" << app.get_strError() << "</error>" << endl;
+		return 0;
 	}
-
-	cout << strTemp << endl;
 
 	return 0;
 }
