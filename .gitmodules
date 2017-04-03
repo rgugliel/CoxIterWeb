@@ -1,0 +1,3 @@
+[submodule "cpp/coxiter"]
+	path = cpp/coxiter
+	url = https://github.com/rgugliel/coxiter
