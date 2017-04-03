@@ -14,7 +14,8 @@ function main()
 
 	if (!preg_match("/^[[:digit:]\[\],;]+$/", $graph))
 		return '<error>graph format</error>';
-
+	
+	// TODO: tester longueur
 	$pieces = explode(';', $graph);
 	$piecesCount = count($pieces);
 	for ($i = 0; $i < $piecesCount; $i++)
@@ -22,6 +23,9 @@ function main()
 		if (!preg_match("/^\[[[:digit:]]{1,4}(,\[[[:digit:]]{1,$mDigits},[[:digit:]]{1,$mDigits}\])+\]$/", $pieces[$i]))
                 	return '<error>graph format</error>';
 	}
+
+	exec('../' . $config['relativePathToExecutable'] . '/coxiterweb "' . $graph . '"', $output);
+	echo implode("\n", $output);
 }
 
 echo main();

@@ -21,10 +21,21 @@ along with AlVin. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
+	cout << "Hello world!" << endl;
+	cout << "#lines: " << argc << endl;
+	string strTemp("");
+	for( int i = 0; i < argc; ++i ) 
+	{
+		strTemp = std::string( argv[i] );
+	}
+
+	cout << strTemp << endl;
+
 	return 0;
 }
