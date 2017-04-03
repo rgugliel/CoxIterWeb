@@ -127,7 +127,7 @@ function computeInvariants()
 	$.ajax({
 		url: "resources/computeInvariants.php",
 		type: "GET",
-		data: "test",
+		data: "graph=" + strGraph + "&dimension=" + dimension + "&verticesCount=" + verticesCount,
 		success: function(result) {
 			// TODO;
 		},
