@@ -124,6 +124,27 @@ function drawGraph(verticesCount, indicesToLabels)
 
 function computeInvariants()
 {
+	// ------------------------------------------
+	// Graph
+	var strGraph = "";
+	var verticesCount = coxeterMatrix.length;
+	var strNeighbours;
+	
+	for (var c = 0; c < verticesCount; c++)
+	{
+		strNeighbours = "";
+		for (var r = c + 1; r < verticesCount; r++ )
+		{
+			if (coxeterMatrix[r][c] != 2)
+				strNeighbours += (strNeighbours != "" ? "," : "") + "[" + r + "," + coxeterMatrix[r][c] + "]";
+		}
+		
+		if (strNeighbours != "")
+			strGraph += (strGraph != "" ? "," : "") + "[" + c + "," + strNeighbours + "]";
+	}
+	
+	// ------------------------------------------
+	// Let's go
 	$.ajax({
 		url: "resources/computeInvariants.php",
 		type: "GET",
