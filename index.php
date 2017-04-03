@@ -1,3 +1,6 @@
+<?php
+require('config/config.php');
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -61,7 +64,7 @@ s0 s2 4</div>
 </body>
 
 <script type="text/javascript">
-var maximalNumberVertices = 20;
+var maximalNumberVertices = <?php echo $config['maximalNumberVertices']; ?>;
 var updateGraphTimeout = 1000;
 
 var editor = ace.edit("graphRaw");

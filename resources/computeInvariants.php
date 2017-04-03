@@ -4,6 +4,9 @@ echo '<?xml version="1.0" encoding="UTF-8" ?><doc>';
 
 function main()
 {
+	require '../config/config.php';
+	$mDigits = $config['verticesMaximalDigits'];	
+
 	$graph = isset($_POST['graph']) ? trim($_POST['graph']) : '';
 	
 	if (empty($graph))
@@ -16,7 +19,7 @@ function main()
 	$piecesCount = count($pieces);
 	for ($i = 0; $i < $piecesCount; $i++)
 	{
-		if (!preg_match("/^\[[[:digit:]]{1,4}(,\[[[:digit:]]{1,4},[[:digit:]]{1,4}\])+\]$/", $pieces[$i]))
+		if (!preg_match("/^\[[[:digit:]]{1,4}(,\[[[:digit:]]{1,$mDigits},[[:digit:]]{1,$mDigits}\])+\]$/", $pieces[$i]))
                 	return '<error>graph format</error>';
 	}
 }
