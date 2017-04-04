@@ -67,6 +67,27 @@ int main(int argc, char **argv)
 		if (ci->get_bDimensionGuessed())
 			cout << "<dimensionGuessed>" << ci->get_iDimension() << "</dimensionGuessed>" << endl;
 			
+		// ---------------------------------------------------
+		// Growth series
+		vector<unsigned int> iCyclotomicNumerator;
+		vector<mpz_class> iPolynomialDenominator;
+		bool bReduced;
+		
+		ci->get_iGrowthSeries(iCyclotomicNumerator, iPolynomialDenominator, bReduced);
+		cout << "<growthSeries>" << endl;
+		cout << "<isReduced>" << (bReduced ? "yes" : "no") << "</isReduced>" << endl;
+		cout << "<numerator>";
+		unsigned int iMax(iCyclotomicNumerator.size());
+		for (unsigned int i(0); i < iMax; i++)
+			cout << ( i ? "," : "" ) << iCyclotomicNumerator[i];
+		cout << "</numerator>" << endl;
+		cout << "<denominator>";
+		Polynomials::polynomialDisplay(iPolynomialDenominator);
+		cout << "</denominator>";
+		cout << "</growthSeries>" << endl;
+		
+		// ---------------------------------------------------
+		// Growth rate
 		#ifdef _COMPILE_WITH_PARI_
 		GrowthRate gr;
 		grr = gr.grrComputations(ci->get_iGrowthSeries_denominator());
@@ -81,8 +102,6 @@ int main(int argc, char **argv)
 			cout << "</growthRate>" << endl;
 		}
 		#endif
-		
-		
 	}
 	else
 	{
