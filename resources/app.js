@@ -1,4 +1,5 @@
 var coxeterMatrix = [];
+var coxeterMatrixInitialized = [];
 var dimension = 0;
 
 function updateGraph()
@@ -15,6 +16,7 @@ function updateGraph()
 	var indicesToLabels = [];
 	var verticesCount = 0;
 	coxeterMatrix = [];
+	coxeterMatrixInitialized = [];
 	dimension = 0;
 	
 	// -------------------------------------
@@ -236,23 +238,31 @@ function addEdge(vertex1, vertex2, weight)
 		// Completing the rows
 		for (var r = 0; r < coxeterMatrix.length; r++)
 		{
-			for (var c = coxeterMatrix.length; c <= vmax; c++ )
+			for (var c = coxeterMatrix.length; c <= vmax; c++)
+			{
 				coxeterMatrix[r].push(2);
+				coxeterMatrixInitialized[r].push(0);
+			}
 		}
 		
 		// Adding some row
 		for (var r = coxeterMatrix.length; r <= vmax; r++)
 		{
 			coxeterMatrix.push([]);
+			coxeterMatrixInitialized.push([]);
 			for (var c = 0; c <= vmax; c++)
+			{
 				coxeterMatrix[r].push(2);
+				coxeterMatrixInitialized[r].push(0);
+			}	
 		}
 	}
 	
-	if (coxeterMatrix[vertex1][vertex2] != 2 && coxeterMatrix[vertex1][vertex2] != weight)
+	if (coxeterMatrixInitialized[vertex1][vertex2] && coxeterMatrix[vertex1][vertex2] != weight)
 		return "edge weight multiple";
 
 	coxeterMatrix[vertex1][vertex2] = coxeterMatrix[vertex2][vertex1] = weight;
+	coxeterMatrixInitialized[vertex1][vertex2] = coxeterMatrixInitialized[vertex2][vertex1] = 1;
 	
 	return "";
 }
