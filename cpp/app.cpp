@@ -1,7 +1,8 @@
 #include "app.h"
 
 App::App()
-: 	iDimension(0),
+:
+	iDimension(0),
 	iVerticesCount(0),
 	strError("")
 {
@@ -56,6 +57,8 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 			iDimension = stoi(regexpRes[1][0]);
 	}
 	
+	// TODO: test graph empty
+	
 	return true;
 }
 
@@ -85,6 +88,28 @@ bool App::addEdge(const unsigned int& iV1, const unsigned int&  iV2, const unsig
 	iVerticesCount = iCoxeterMatrix.size();
 	
 	return true;
+}
+
+CoxIter* App::doComputations()
+{
+	CoxIter* ci(new CoxIter(iCoxeterMatrix, iDimension));
+	ci->set_bCheckCofiniteness(true);
+	ci->set_bCheckCocompactness(true);
+	
+	ci->exploreGraph();
+	ci->computeGraphsProducts();
+	
+	if (!ci->bEulerCharacteristicFVector())
+		return ci;
+	
+	#ifdef _COMPILE_WITH_PARI_
+	ci->growthSeries();
+	#endif
+	
+	ci->isFiniteCovolume();
+	ci->iIsGraphCocompact();
+	
+	return ci;
 }
 
 string App::get_strError() const

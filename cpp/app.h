@@ -4,8 +4,13 @@
 #include <string>
 #include <vector>
 
+#include "coxiter/coxiter.h"
 #include "coxiter/lib/regexp.h"
 #include "coxiter/lib/string.h"
+
+#ifdef _COMPILE_WITH_PARI_
+#include "coxiter/growthrate.h"
+#endif
 
 using namespace std;
 
@@ -22,6 +27,7 @@ class App
 		App();
 		
 		bool bCreateCoxeterMatrix(int argc, char **argv);
+		CoxIter* doComputations();
 		string get_strError() const;
 		
 	private:

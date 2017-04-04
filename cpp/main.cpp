@@ -29,12 +29,64 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	App app;
-	
 	if (!app.bCreateCoxeterMatrix(argc, argv))
 	{
 		cout << "<error>" << app.get_strError() << "</error>" << endl;
 		return 0;
 	}
+	
+	#ifdef _COMPILE_WITH_PARI_
+	GrowthRate_Result grr;
+	grr.bComputed = false;
+	grr.iPerron = -1;
+	grr.iPisot = -1;
+	grr.iSalem = -1;
+	#endif
+
+	CoxIter* ci(app.doComputations());
+	if (ci->get_strError() == "")
+	{
+		unsigned int iDimension(ci->get_iDimension());
+		
+		cout << "<cofinite>" << ci->get_iIsFiniteCovolume() << "</cofinite>" << endl;
+		cout << "<cocompact>" << ci->get_iIsCocompact() << "</cocompact>" << endl;
+		cout << "<euler>" << ci->get_brEulerCaracteristic() << "</euler>" << endl;
+		
+		if(iDimension)
+		{
+			vector< unsigned int > iFVector(ci->get_iFVector());
+			
+			cout << "<vatinfinity>" << ci->get_iVerticesAtInfinityCount() << "</vatinfinity>" << endl;
+			
+			cout << "<fvector>(";
+			for (unsigned int i( 0 ); i <= iDimension; i++)
+				cout << ( i ? ", " : "" ) << iFVector[i];
+			cout << ")</fvector>" << endl;
+		}
+		
+		#ifdef _COMPILE_WITH_PARI_
+		GrowthRate gr;
+		grr = gr.grrComputations(ci->get_iGrowthSeries_denominator());
+		
+		if(grr.bComputed && ci->get_bGrowthSeriesReduced())
+		{
+			cout << "<growthRate>" << endl;
+			cout << "<value>" << grr.strGrowthRate << "</value>" << endl;
+			cout << "<perron>" << ( grr.iPerron < 0 ? "?" : ( grr.iPerron > 0 ? "yes" : "no" ) ) << "</perron>" << endl;
+			cout << "<pisot>" << ( grr.iPisot < 0 ? "?" : ( grr.iPisot > 0 ? "yes" : "no" ) ) << "</pisot>" << endl;
+			cout << "<salem>" << ( grr.iSalem < 0 ? "?" : ( grr.iSalem > 0 ? "yes" : "no" ) ) << "</salem>" << endl;
+			cout << "</growthRate>" << endl;
+		}
+		#endif
+	}
+	else
+	{
+		cout << "<error>" << ci->get_strError() << "</error>" << endl;
+		delete ci;
+		return 0;
+	}
+	
+	delete ci;
 
 	return 0;
 }
