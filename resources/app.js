@@ -210,7 +210,7 @@ function computeInvariants()
 				if ($(gr).find('salem').length)
 					lis += '<li>Salem number: ' + $(gr).find('salem').text() + '</li>';
 				
-				$("#invariantsList").append("<ul>" + lis + "</ul>");
+				$("#invariantsList").append("<li>Growth rate: <ul>" + lis + "</ul></li>");
 			}
 		},
 		error: function(errorData) { 
