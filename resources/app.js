@@ -3,6 +3,7 @@ var dimension = 0;
 
 function updateGraph()
 {
+	removeChildren($("#invariantsList"));
 	var content = editor.getValue();
 	var rows = editor.getValue().split("\n");
 	var rowsCount = rows.length
@@ -124,7 +125,6 @@ function drawGraph(verticesCount, indicesToLabels)
 
 function removeChildren($el) 
 {
-	//alert($el.children().length);
 	if ($el.children().length) 
 	{
 		$el.children().each(function(i, val) {
@@ -156,10 +156,6 @@ function computeInvariants()
 	}
 	
 	removeChildren($("#invariantsList"));
-	/*
-	$("#invariantsList").find("li").each(function(li) {
-		li.remove();
-	});*/
 	
 	// ------------------------------------------
 	// Let's go

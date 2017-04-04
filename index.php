@@ -52,8 +52,7 @@ require('config/config.php');
 2 s0 3
 s0 s1 3
 s0 s2 4</div>
-
-			<br /><input type="button" onclick="computeInvariants();" value="hop hop" />
+			<div id="doComputations" onclick="computeInvariants();"><span>Compute the invariants</span></div><br />
 			
 			<div id="invariants">
 				<h2>Invariants</h2>

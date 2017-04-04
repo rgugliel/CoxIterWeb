@@ -29,3 +29,20 @@
 	
 	display: none;
 }
+
+#doComputations
+{
+	background-image: url("compute.png");
+	background-repeat: no-repeat;
+	background-position: 405px 5px;
+	
+	vertical-align: middle;
+	text-align: right;
+	padding-right: 22px;
+	font-size: 14px;
+}
+
+#doComputations span
+{
+	vertical-align: middle;
+}
