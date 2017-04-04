@@ -64,6 +64,9 @@ int main(int argc, char **argv)
 			cout << ")</fvector>" << endl;
 		}
 		
+		if (ci->get_bDimensionGuessed())
+			cout << "<dimensionGuessed>" << ci->get_iDimension() << "</dimensionGuessed>" << endl;
+			
 		#ifdef _COMPILE_WITH_PARI_
 		GrowthRate gr;
 		grr = gr.grrComputations(ci->get_iGrowthSeries_denominator());
@@ -79,8 +82,7 @@ int main(int argc, char **argv)
 		}
 		#endif
 		
-		if (ci->get_bDimensionGuessed())
-			cout << "<dimensionGuessed>" << ci->get_iDimension() << "</dimensionGuessed>" << endl;
+		
 	}
 	else
 	{
