@@ -83,7 +83,7 @@ function updateGraph()
 			return parsingError(i, "parse");
 	}
 	
-	document.getElementById("graphParsingErrors").style.display = "none";
+	$("#graphParsingErrors").hide(400);
 	
 	if (verticesCount > 0)
 		drawGraph(verticesCount, indicesToLabels)
@@ -291,5 +291,5 @@ function parsingError(rowIndex, errorCode)
 		strError += "Unknown error";
 		
 	document.getElementById("graphParsingErrors").innerHTML = strError;
-	document.getElementById("graphParsingErrors").style.display = "block";
+	$("#graphParsingErrors").show(400);
 }
