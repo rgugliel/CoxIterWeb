@@ -54,6 +54,12 @@ s0 s1 3
 s0 s2 4</div>
 
 			<br /><input type="button" onclick="computeInvariants();" value="hop hop" />
+			
+			<div id="invariants">
+				<h2>Invariants</h2>
+				<ul id="invariantsList">
+				</ul>
+			</div>
 			</div>
 		</div>
 		<div id="content_footer"></div>

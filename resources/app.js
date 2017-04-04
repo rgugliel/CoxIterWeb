@@ -122,6 +122,18 @@ function drawGraph(verticesCount, indicesToLabels)
 	document.getElementById("graphImage").innerHTML = result;
 }
 
+function removeChildren($el) 
+{
+	//alert($el.children().length);
+	if ($el.children().length) 
+	{
+		$el.children().each(function(i, val) {
+			removeChildren($(val));
+			$(val).remove();
+		});
+	}
+}
+
 function computeInvariants()
 {
 	// ------------------------------------------
@@ -143,14 +155,62 @@ function computeInvariants()
 			strGraph += (strGraph != "" ? ";" : "") + "[" + c + "," + strNeighbours + "]";
 	}
 	
+	removeChildren($("#invariantsList"));
+	/*
+	$("#invariantsList").find("li").each(function(li) {
+		li.remove();
+	});*/
+	
 	// ------------------------------------------
 	// Let's go
 	$.ajax({
 		url: "resources/computeInvariants.php",
 		type: "POST",
 		data: "graph=" + strGraph + "&dimension=" + dimension + "&verticesCount=" + verticesCount,
+		dataType: "xml",
 		success: function(result) {
-			// TODO;
+			var temp;
+			
+			if ($(result).find('cocompact').length)
+			{
+				temp = $(result).find('cocompact').text();
+				$("#invariantsList").append('<li>Cocompact: ' + (temp == 1 ? "yes" : (temp == 0 ? "no" : "?")) + '</li>');
+			}
+			
+			if ($(result).find('cofinite').length)
+			{
+				temp = $(result).find('cofinite').text();
+				$("#invariantsList").append('<li>Cofinite: ' + (temp == 1 ? "yes" : (temp == 0 ? "no" : "?")) + '</li>');
+			}
+			
+			if ($(result).find('fvector').length)
+				$("#invariantsList").append('<li>f-vector: ' + $(result).find('fvector').text() + '</li>');
+				
+			if ($(result).find('vatinfinity').length)
+				$("#invariantsList").append('<li>Number of vertices at infinity: ' + $(result).find('vatinfinity').text() + '</li>');
+				
+			if ($(result).find('euler').length)
+				$("#invariantsList").append('<li>Euler characteristic: ' + $(result).find('euler').text() + '</li>');
+			
+			if ($(result).find('growthRate').length)
+			{
+				var gr = $(result).find('growthRate');
+				var lis = "";
+				
+				if ($(gr).find('value').length)
+					lis += "<li>Value: " + $(gr).find('value').text() + "</li>";
+				
+				if ($(gr).find('perron').length)
+					lis += '<li>Perron number: ' + $(gr).find('perron').text() + '</li>';
+					
+				if ($(gr).find('pisot').length)
+					lis += '<li>Pisot number: ' + $(gr).find('pisot').text() + '</li>';
+					
+				if ($(gr).find('salem').length)
+					lis += '<li>Salem number: ' + $(gr).find('salem').text() + '</li>';
+				
+				$("#invariantsList").append("<ul>" + lis + "</ul>");
+			}
 		},
 		error: function(errorData) { 
 		// TODO

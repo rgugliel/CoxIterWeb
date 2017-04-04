@@ -94,8 +94,7 @@ ol li
 #logo
 { width: 870px;
   height: 127px;
-  position: relative;
-  background: transparent url(logo.png) no-repeat right;}
+  position: relative;}
 
 #logo #logo_text 
 { position: absolute; 
