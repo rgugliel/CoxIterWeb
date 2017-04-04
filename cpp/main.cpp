@@ -78,6 +78,9 @@ int main(int argc, char **argv)
 			cout << "</growthRate>" << endl;
 		}
 		#endif
+		
+		if (ci->get_bDimensionGuessed())
+			cout << "<dimensionGuessed>" << ci->get_iDimension() << "</dimensionGuessed>" << endl;
 	}
 	else
 	{

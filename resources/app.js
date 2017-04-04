@@ -167,6 +167,9 @@ function computeInvariants()
 		success: function(result) {
 			var temp;
 			
+			if ($(result).find('dimensionGuessed').length)
+				$("#invariantsList").append('<li>Guessed dimension: ' + $(result).find('dimensionGuessed').text() + '</li>');
+			
 			if ($(result).find('cocompact').length)
 			{
 				temp = $(result).find('cocompact').text();
