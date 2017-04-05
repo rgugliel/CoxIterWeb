@@ -16,13 +16,16 @@ function main()
 	if (!preg_match("/^[[:digit:]\[\],;]+$/", $graph))
 		return '<error>graph format</error>';
 	
-	// TODO: tester longueur
 	$pieces = explode(';', $graph);
 	$piecesCount = count($pieces);
+	
+	if ($piecesCount > $config['maximalNumberVertices'])
+		return '<error>vertices maximal number</error>';
+
 	for ($i = 0; $i < $piecesCount; $i++)
 	{
 		if (!preg_match("/^\[[[:digit:]]{1,4}(,\[[[:digit:]]{1,$mDigits},[[:digit:]]{1,$mDigits}\])+\]$/", $pieces[$i]))
-                	return '<error>graph format</error>';
+			return '<error>graph format</error>';
 	}
 
 	exec('../' . $config['relativePathToExecutable'] . '/coxiterweb "' . $graph . ';dimension=' . $dimension . '"', $output);

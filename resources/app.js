@@ -188,6 +188,10 @@ function computeInvariants()
 		dataType: "xml",
 		success: function(result) {
 			var temp;
+			
+			if ($(result).find('error').length)
+				return parsingError(-1, $(result).find('error').text());
+				
 			if ($(result).find('dimensionGuessed').length)
 			{
 				$("#invariantsList").append('<li>Guessed dimension: ' + $(result).find('dimensionGuessed').text() + '</li>');
