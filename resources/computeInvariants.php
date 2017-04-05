@@ -24,7 +24,8 @@ function main()
 
 	for ($i = 0; $i < $piecesCount; $i++)
 	{
-		if (!preg_match("/^\[[[:digit:]]{1,4}(,\[[[:digit:]]{1,$mDigits},[[:digit:]]{1,$mDigits}\])+\]$/", $pieces[$i]))
+		$matches = array();
+		if (!preg_match_all("/^\[[[:digit:]]{1,$mDigits}(,\[[[:digit:]]{1,$mDigits},[[:digit:]]{1,$mDigits}\])+\]$/", $pieces[$i], $matches))
 			return '<error>graph format</error>';
 	}
 
