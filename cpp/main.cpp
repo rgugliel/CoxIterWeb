@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 	#endif
 
 	CoxIter* ci(app.doComputations());
-	if (ci->get_strError() == "")
+	if (ci->get_strError() == "" && app.get_strError() == "")
 	{
 		unsigned int iDimension(ci->get_iDimension());
 		
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		cout << "<error>" << ci->get_strError() << "</error>" << endl;
+		cout << "<error>" << (ci->get_strError() == "" ? app.get_strError() : ci->get_strError()) << "</error>" << endl;
 		delete ci;
 		return 0;
 	}

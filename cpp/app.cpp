@@ -28,8 +28,6 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 	unsigned int iSource, iCount, j;
 	vector<string> strPiecesTemp;
 	
-	// TODO: check max vertices
-	
 	for (unsigned int i(0); i < iPiecesCount; i++)
 	{
 		if (regexp.preg_match_all( "^\\[([[:digit:]]{1,4})(,\\[[[:digit:]]{1,4},[[:digit:]]{1,4}\\])+\\]$", strPieces[i], regexpRes)) // TODO: 4 --> option
@@ -107,7 +105,10 @@ CoxIter* App::doComputations()
 	ci->computeGraphsProducts();
 	
 	if (!ci->bEulerCharacteristicFVector())
+	{
+		strError = "graph encoding";
 		return ci;
+	}
 	
 	#ifdef _COMPILE_WITH_PARI_
 	ci->growthSeries();
