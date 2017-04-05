@@ -24,7 +24,7 @@ require('config/config.php');
 		<div id="header">
 			<div id="logo">
 				<div id="logo_text">
-					<h1><a href="index.html">CoxIter<span class="logo_colour">Web</span></a></h1>
+					<h1><a href="index.php">CoxIter<span class="logo_colour">Web</span></a></h1>
 					<h2>A web client for CoxIter</h2>
 				</div>
 			</div>
