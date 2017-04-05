@@ -65,6 +65,13 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 bool App::addEdge(const unsigned int& iV1, const unsigned int&  iV2, const unsigned int& iWeight)
 {
 	unsigned int iMax(max(iV1, iV2));
+	
+	if (COXITERWEB_MAXIMAL_NUMBER_VERTICES <= iMax)
+	{
+		strError = "vertices maximal number";
+		return false;
+	}
+	
 	if (iVerticesCount <= iMax) // We have to update matrix' size
 	{
 		for (unsigned int r(0); r < iVerticesCount; r++ )

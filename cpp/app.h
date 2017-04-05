@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "config.h"
+
 #include "coxiter/coxiter.h"
 #include "coxiter/lib/regexp.h"
 #include "coxiter/lib/string.h"
