@@ -1,6 +1,6 @@
 #include "app.h"
 
-string App::verticesMaximalDigits = to_string(ceil(log10(COXITERWEB_MAXIMAL_NUMBER_VERTICES)));
+string App::verticesMaximalDigits = to_string((unsigned int)ceil(log10(COXITERWEB_MAXIMAL_NUMBER_VERTICES)));
 string App::graphDescriptionRegexp = "^\\[([[:digit:]]{1," + verticesMaximalDigits + "})(,\\[[[:digit:]]{1," + verticesMaximalDigits + "},[[:digit:]]{1," + verticesMaximalDigits + "}\\])+\\]$";
 
 App::App()
@@ -58,7 +58,11 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 			iDimension = stoi(regexpRes[1][0]);
 	}
 	
-	// TODO: test graph empty
+	if (!iVerticesCount)
+	{
+		strError = "graph empty";
+		return false;
+	}
 	
 	return true;
 }

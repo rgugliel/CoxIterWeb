@@ -355,6 +355,8 @@ function parsingError(rowIndex, errorCode)
 		strError += "The dimension was already defined";
 	else if (errorCode ==  "edge weight multiple")
 		strError += "This edge was already defined";
+	else if (errorCode ==  "graph empty")
+		strError += "Please give a graph";
 	else if (errorCode ==  "graph encoding")
 		strError += "Check the encoding of your graph; maybe the group is not of finite covolume";
 	else if (errorCode ==  "parse")
