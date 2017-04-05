@@ -78,6 +78,7 @@ s0 s2 4</div>
 
 <script type="text/javascript">
 var maximalNumberVertices = <?php echo $config['maximalNumberVertices']; ?>;
+var maximalWeight = <?php echo $config['maximalWeight']; ?>;
 var updateGraphTimeout = 1000;
 
 var editor = ace.edit("graphRaw");

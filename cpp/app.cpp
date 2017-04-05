@@ -1,7 +1,8 @@
 #include "app.h"
 
 string App::verticesMaximalDigits = to_string((unsigned int)ceil(log10(COXITERWEB_MAXIMAL_NUMBER_VERTICES)));
-string App::graphDescriptionRegexp = "^\\[([[:digit:]]{1," + verticesMaximalDigits + "})(,\\[[[:digit:]]{1," + verticesMaximalDigits + "},[[:digit:]]{1," + verticesMaximalDigits + "}\\])+\\]$";
+string App::edgeMaximalDigits = to_string((unsigned int)ceil(log10(COXITERWEB_MAXIMAL_WEIGHT)));
+string App::graphDescriptionRegexp = "^\\[([[:digit:]]{1," + verticesMaximalDigits + "})(,\\[[[:digit:]]{1," + verticesMaximalDigits + "},[[:digit:]]{1," + edgeMaximalDigits + "}\\])+\\]$";
 
 App::App()
 :
@@ -37,7 +38,7 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 		{
 			iSource = stoi(regexpRes[1][0]);
 			
-			if (regexp.preg_match_all( "\\[([[:digit:]]{1,4},[[:digit:]]{1,4})\\]", strPieces[i], regexpRes))
+			if (regexp.preg_match_all( "\\[([[:digit:]]{1,4},[[:digit:]]{1,4})\\]", strPieces[i], regexpRes)) // TODO: 4 --> option
 			{
 				iCount = regexpRes[1].size();
 				for (j = 0; j < iCount; j++)
@@ -70,6 +71,12 @@ bool App::bCreateCoxeterMatrix(int argc, char **argv)
 bool App::addEdge(const unsigned int& iV1, const unsigned int&  iV2, const unsigned int& iWeight)
 {
 	unsigned int iMax(max(iV1, iV2));
+	
+	if (iWeight > COXITERWEB_MAXIMAL_WEIGHT)
+	{
+		strError = "weight maximal";
+		return false;
+	}
 	
 	if (COXITERWEB_MAXIMAL_NUMBER_VERTICES <= iMax)
 	{

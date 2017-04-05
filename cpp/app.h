@@ -27,6 +27,7 @@ class App
 		unsigned int iVerticesCount;
 		
 		static string verticesMaximalDigits;
+		static string edgeMaximalDigits;
 		static string graphDescriptionRegexp;
 		
 	public:

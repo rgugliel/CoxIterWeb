@@ -5,7 +5,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?><doc>';
 function main()
 {
 	require '../config/config.php';
-	$mDigits = $config['verticesMaximalDigits'];	
+	$mDigits = $config['verticesMaximalDigits'];
+	$mDigitsWeights = $config['maximalWeightDigits'];
 
 	$graph = isset($_POST['graph']) ? trim($_POST['graph']) : '';
 	$dimension = isset($_POST['dimension']) ? (int)$_POST['dimension'] : 0;
@@ -25,7 +26,7 @@ function main()
 	for ($i = 0; $i < $piecesCount; $i++)
 	{
 		$matches = array();
-		if (!preg_match_all("/^\[[[:digit:]]{1,$mDigits}(,\[[[:digit:]]{1,$mDigits},[[:digit:]]{1,$mDigits}\])+\]$/", $pieces[$i], $matches))
+		if (!preg_match_all("/^\[[[:digit:]]{1,$mDigits}(,\[[[:digit:]]{1,$mDigits},[[:digit:]]{1,$mDigitsWeights}\])+\]$/", $pieces[$i], $matches))
 			return '<error>graph format</error>';
 	}
 
