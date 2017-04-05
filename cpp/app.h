@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "config.h"
 
@@ -24,6 +25,9 @@ class App
 		vector<vector<unsigned int>> iCoxeterMatrix;
 		unsigned int iDimension;
 		unsigned int iVerticesCount;
+		
+		static string verticesMaximalDigits;
+		static string graphDescriptionRegexp;
 		
 	public:
 		App();
