@@ -36,13 +36,46 @@
 	background-repeat: no-repeat;
 	background-position: 405px 5px;
 	
+	height: 25px;
 	vertical-align: middle;
 	text-align: right;
+	
 	padding-right: 22px;
+	padding-top: 5px;
+}
+
+.actions
+{
 	font-size: 14px;
 }
 
-#doComputations span
+#downloads
 {
+	display: none;
+}
+
+#downloadGraph 
+{
+	background-image: url("download_small.png");
+	background-repeat: no-repeat;
+	background-position: 0px 5px;
+	
+	height: 20px;
+	padding-left: 18px;
+	padding-top: 5px;
+	float: left;
+}
+
+#downloadInvariants
+{
+	background-image: url("download_small.png");
+	background-repeat: no-repeat;
+	background-position: 405px 5px;
+	
+	height: 25px;
 	vertical-align: middle;
+	text-align: right;
+	
+	padding-right: 22px;
+	padding-top: 5px;
 }

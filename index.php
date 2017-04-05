@@ -52,12 +52,20 @@ require('config/config.php');
 2 s0 3
 s0 s1 3
 s0 s2 4</div>
-			<div id="doComputations" onclick="computeInvariants();"><span>Compute the invariants</span></div><br />
+			<div class="actions">
+				<div id="downloadGraph" onclick="download('coxiter');">Download graph</div>
+				<div id="doComputations" onclick="computeInvariants();">Compute the invariants</div>
+			</div><br />
 			
 			<div id="invariants">
 				<h2>Invariants</h2>
 				<ul id="invariantsList">
 				</ul>
+				
+				<div class="actions" id="downloads">
+					<div id="downloadGraph" onclick="download('coxiter');">Download graph</div>
+					<div id="downloadInvariants" onclick="download('invariants');">Download invariants</div>
+				</div>
 			</div>
 			</div>
 		</div>
@@ -77,6 +85,9 @@ var timerEdit;
 editor.on("change", function() {
 	clearTimeout( timerEdit );
 	timerEdit = setTimeout(updateGraph, updateGraphTimeout);
+	
+	removeChildren($("#invariantsList"));
+	$("#downloads").hide(400);
 });
 
 updateGraph();

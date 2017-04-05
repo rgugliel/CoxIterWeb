@@ -2,6 +2,9 @@ var coxeterMatrix = [];
 var coxeterMatrixInitialized = [];
 var dimension = 0;
 
+var result_CoxIter = "";
+var result_invariants = "";
+
 function updateGraph()
 {
 	removeChildren($("#invariantsList"));
@@ -87,6 +90,22 @@ function updateGraph()
 	
 	if (verticesCount > 0)
 		drawGraph(verticesCount, indicesToLabels)
+		
+	// -------------------------------------
+	// Updating CoxIter file
+	result_CoxIter = verticesCount + " " + (dimension > 0 ? dimension : "") + "\n";
+	result_CoxIter += "vertices labels:";
+	for (var i = 0; i < verticesCount; i++ )
+		result_CoxIter += " " + indicesToLabels[i];
+	result_CoxIter += "\n";	
+	for (var r = 0; r < verticesCount; r++)
+	{
+		for (var c = r + 1; c < verticesCount; c++)
+		{
+			if (coxeterMatrix[r][c] != 2)
+				result_CoxIter += indicesToLabels[r] + " " + indicesToLabels[c] + " " + coxeterMatrix[r][c] + "\n";
+		}
+	}
 }
 
 function drawGraph(verticesCount, indicesToLabels)
@@ -158,6 +177,7 @@ function computeInvariants()
 	}
 	
 	removeChildren($("#invariantsList"));
+	result_invariants = "";
 	
 	// ------------------------------------------
 	// Let's go
@@ -168,55 +188,104 @@ function computeInvariants()
 		dataType: "xml",
 		success: function(result) {
 			var temp;
-			
 			if ($(result).find('dimensionGuessed').length)
+			{
 				$("#invariantsList").append('<li>Guessed dimension: ' + $(result).find('dimensionGuessed').text() + '</li>');
+				result_invariants += 'Guessed dimension: ' + $(result).find('dimensionGuessed').text() + "\n";
+			}
 			
 			if ($(result).find('cocompact').length)
 			{
 				temp = $(result).find('cocompact').text();
 				$("#invariantsList").append('<li>Cocompact: ' + (temp == 1 ? "yes" : (temp == 0 ? "no" : "?")) + '</li>');
+				result_invariants += 'Cocompact: ' + (temp == 1 ? "yes" : (temp == 0 ? "no" : "?")) + "\n";
 			}
 			
 			if ($(result).find('cofinite').length)
 			{
 				temp = $(result).find('cofinite').text();
 				$("#invariantsList").append('<li>Cofinite: ' + (temp == 1 ? "yes" : (temp == 0 ? "no" : "?")) + '</li>');
+				result_invariants += 'Cofinite: ' + (temp == 1 ? "yes" : (temp == 0 ? "no" : "?")) + "\n";
 			}
 			
 			if ($(result).find('fvector').length)
+			{
 				$("#invariantsList").append('<li>f-vector: ' + $(result).find('fvector').text() + '</li>');
+				result_invariants += 'f-vector: ' + $(result).find('fvector').text() + "\n";
+			}
 				
 			if ($(result).find('vatinfinity').length)
+			{
 				$("#invariantsList").append('<li>Number of vertices at infinity: ' + $(result).find('vatinfinity').text() + '</li>');
+				result_invariants += 'Number of vertices at infinity: ' + $(result).find('vatinfinity').text() + "\n";
+			}
 				
 			if ($(result).find('euler').length)
+			{
 				$("#invariantsList").append('<li>Euler characteristic: ' + $(result).find('euler').text() + '</li>');
+				result_invariants += 'Euler characteristic: ' + $(result).find('euler').text() + "\n";
+			}
 			
 			if ($(result).find('growthRate').length)
 			{
 				var gr = $(result).find('growthRate');
 				var lis = "";
 				
+				result_invariants += "Growth rate:\n";
+				
 				if ($(gr).find('value').length)
+				{
 					lis += "<li>Value: " + $(gr).find('value').text() + "</li>";
+					result_invariants += "\tValue: " + $(gr).find('value').text() + "\n";
+				}
 				
 				if ($(gr).find('perron').length)
+				{
 					lis += '<li>Perron number: ' + $(gr).find('perron').text() + '</li>';
+					result_invariants += "\tPerron number: " + $(gr).find('perron').text() + "\n";
+				}
 					
 				if ($(gr).find('pisot').length)
+				{
 					lis += '<li>Pisot number: ' + $(gr).find('pisot').text() + '</li>';
+					result_invariants += "\tPisot number: " + $(gr).find('pisot').text() + "\n";
+				}
 					
 				if ($(gr).find('salem').length)
+				{
 					lis += '<li>Salem number: ' + $(gr).find('salem').text() + '</li>';
+					result_invariants += "\tSalem number: " + $(gr).find('salem').text() + "\n";
+				}
 				
 				$("#invariantsList").append("<li>Growth rate: <ul>" + lis + "</ul></li>");
 			}
+			
+			if ($(result).find('numerator').length && $(result).find('denominator').length)
+				result_invariants += "\nf(x)=C(" + $(result).find('numerator').text() + ")/(" +  $(result).find('denominator').text() + ")";
+				
+			$("#downloads").show(400);
 		},
 		error: function(errorData) { 
 		// TODO
 		}
 	});
+}
+
+function download(source)
+{
+	if (source != "coxiter" && source != "invariants")
+		return;
+		
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(source == "coxiter" ? result_CoxIter : result_invariants));
+	element.setAttribute('download', source == "coxiter" ? 'graph.coxiter' : 'invariants.txt');
+
+	element.style.display = 'none';
+	document.body.appendChild(element);
+
+	element.click();
+
+	document.body.removeChild(element);result_
 }
 
 /*! \fn addEdge
