@@ -266,7 +266,7 @@ function computeInvariants()
 			$("#downloads").show(400);
 		},
 		error: function(errorData) { 
-		// TODO
+			parsingError(-1, 'ajax');
 		}
 	});
 }
@@ -338,9 +338,14 @@ function addEdge(vertex1, vertex2, weight)
 
 function parsingError(rowIndex, errorCode)
 {
-	var strError = "Error in line " + (rowIndex + 1) + "<br />";
+	var strError = "";
 	
-	if (errorCode ==  "dimension invalid")
+	if(rowIndex >= 0)
+		strError += "Error in line " + (rowIndex + 1) + "<br />";
+		
+	if (errorCode ==  "ajax")
+		strError += "One error occurred during the computation of the invariants";
+	else if (errorCode ==  "dimension invalid")
 		strError += "The dimension should be greater than one";
 	else if (errorCode ==  "dimension multiple")
 		strError += "The dimension was already defined";
@@ -361,4 +366,5 @@ function parsingError(rowIndex, errorCode)
 		
 	document.getElementById("graphParsingErrors").innerHTML = strError;
 	$("#graphParsingErrors").show(400);
+
 }
