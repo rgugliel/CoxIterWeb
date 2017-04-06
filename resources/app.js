@@ -230,6 +230,12 @@ function computeInvariants()
 				result_invariants += 'Euler characteristic: ' + $(result).find('euler').text() + "\n";
 			}
 			
+			if ($(result).find('covolume').length)
+			{
+				$("#invariantsList").append('<li>Covolume: ' + $(result).find('covolume').text() + '</li>');
+				result_invariants += 'Covolume: ' + $(result).find('covolume').text() + "\n";
+			}
+			
 			if ($(result).find('growthRate').length)
 			{
 				var gr = $(result).find('growthRate');

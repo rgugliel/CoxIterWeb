@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 		cout << "<cocompact>" << ci->get_iIsCocompact() << "</cocompact>" << endl;
 		cout << "<euler>" << ci->get_brEulerCaracteristic() << "</euler>" << endl;
 		
-		if(iDimension)
+		if (iDimension)
 		{
 			vector< unsigned int > iFVector(ci->get_iFVector());
 			
@@ -62,6 +62,20 @@ int main(int argc, char **argv)
 			for (unsigned int i( 0 ); i <= iDimension; i++)
 				cout << ( i ? ", " : "" ) << iFVector[i];
 			cout << ")</fvector>" << endl;
+			
+			if (!(iDimension % 2) && ci->get_iIsFiniteCovolume() == 1)
+			{
+				MPZ_rational cov(( iDimension / 2 ) % 2 ? -1 : 1);
+				for (unsigned int i( 1 ); i <= iDimension; i++)
+				{
+					cov *= 2;
+					cov /= i;
+					if( i <= ( iDimension / 2 ) )
+						cov *= i;
+				}
+				
+				cout << "<covolume>pi^" << ( iDimension / 2 ) << " * " << cov * ci->get_brEulerCaracteristic() << "</covolume>" << endl;
+			}
 		}
 		
 		if (ci->get_bDimensionGuessed())
@@ -89,17 +103,20 @@ int main(int argc, char **argv)
 		// ---------------------------------------------------
 		// Growth rate
 		#ifdef _COMPILE_WITH_PARI_
-		GrowthRate gr;
-		grr = gr.grrComputations(ci->get_iGrowthSeries_denominator());
-		
-		if(grr.bComputed && ci->get_bGrowthSeriesReduced())
+		if (ci->get_iIsFiniteCovolume() == 1)
 		{
-			cout << "<growthRate>" << endl;
-			cout << "<value>" << grr.strGrowthRate << "</value>" << endl;
-			cout << "<perron>" << ( grr.iPerron < 0 ? "?" : ( grr.iPerron > 0 ? "yes" : "no" ) ) << "</perron>" << endl;
-			cout << "<pisot>" << ( grr.iPisot < 0 ? "?" : ( grr.iPisot > 0 ? "yes" : "no" ) ) << "</pisot>" << endl;
-			cout << "<salem>" << ( grr.iSalem < 0 ? "?" : ( grr.iSalem > 0 ? "yes" : "no" ) ) << "</salem>" << endl;
-			cout << "</growthRate>" << endl;
+			GrowthRate gr;
+			grr = gr.grrComputations(ci->get_iGrowthSeries_denominator());
+			
+			if(grr.bComputed && ci->get_bGrowthSeriesReduced())
+			{
+				cout << "<growthRate>" << endl;
+				cout << "<value>" << grr.strGrowthRate << "</value>" << endl;
+				cout << "<perron>" << ( grr.iPerron < 0 ? "?" : ( grr.iPerron > 0 ? "yes" : "no" ) ) << "</perron>" << endl;
+				cout << "<pisot>" << ( grr.iPisot < 0 ? "?" : ( grr.iPisot > 0 ? "yes" : "no" ) ) << "</pisot>" << endl;
+				cout << "<salem>" << ( grr.iSalem < 0 ? "?" : ( grr.iSalem > 0 ? "yes" : "no" ) ) << "</salem>" << endl;
+				cout << "</growthRate>" << endl;
+			}
 		}
 		#endif
 	}
