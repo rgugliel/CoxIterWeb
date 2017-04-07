@@ -29,6 +29,7 @@ class App
 		static string verticesMaximalDigits;
 		static string edgeMaximalDigits;
 		static string graphDescriptionRegexp;
+		static string edgeDescriptionRegexp;
 		
 	public:
 		App();
