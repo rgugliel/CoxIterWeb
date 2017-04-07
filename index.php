@@ -10,6 +10,7 @@ require('config/config.php');
 	<meta name="keywords" content="website keywords, website keywords" />
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
+	<link rel="stylesheet" type="text/css" href="resources/popup.css" />
 	
 	<link href="resources/main.css" rel="stylesheet" />
 	
@@ -45,7 +46,7 @@ require('config/config.php');
 				<div id="graphImage"></div>
 			</div>
 			<div id="content">
-				<h1>Coxeter graph and invariants</h1>
+				<h1>Coxeter graph and invariants<span id="helpButton"><a href="#popupHelp"><img src="resources/help.png" /></a></span></h1>
 			
 				<div id="graphRaw">dimension 4
 1 2 3
@@ -72,6 +73,24 @@ s0 s2 4</div>
 		<div id="content_footer"></div>
 		<div id="footer">
 			<p>Copyright &copy; shadowplay_2 | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">design from HTML5webtemplates.co.uk</a></p>
+		</div>
+	</div>
+	
+	<div id="popupHelp" class="overlay">
+		<div class="popup">
+			<h2>Describing the graph</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				Use the editor to describe the Coxeter group of your hyperbolic Coxeter group/polyhedron.<br /><br />
+				
+				<ul type="disc">
+					<li>The graph can contain up to <?php echo $config['maximalNumberVertices']; ?> vertices</li>
+					<li>Use a weight 0 to specify a bold edge</li>
+					<li>Use a weight 1 to specify a dotted edge</li>
+				</ul>
+				
+				Once you are done, click on the "Compute the invariants" button!
+			</div>
 		</div>
 	</div>
 </body>

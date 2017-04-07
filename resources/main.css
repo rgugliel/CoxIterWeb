@@ -85,3 +85,15 @@
 	
 	cursor: pointer; cursor: hand; 
 }
+
+#helpButton
+{
+	padding-left: 35px;
+	padding-top: 5px;
+	vertical-align: bottom;
+}
+
+#helpButton a
+{
+	border-bottom: none;
+}
