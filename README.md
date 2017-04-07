@@ -14,3 +14,13 @@ Requirements:
 
 Additional remarks:
 * One could/should move the executable outside of the www/ folder (see config/config.php)
+
+## Install instructions
+* Download everything on your web server
+* Eventually, move cpp/ outside the www/ folder
+* Configure the app in config/config.php and cpp/config.php
+* In cpp/build, do
+```
+cmake ../
+make
+```
