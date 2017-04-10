@@ -88,9 +88,7 @@
 
 #helpButton
 {
-	padding-left: 35px;
-	padding-top: 5px;
-	vertical-align: bottom;
+	float: right; 
 }
 
 #helpButton a

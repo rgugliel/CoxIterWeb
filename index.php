@@ -46,7 +46,7 @@ require('config/config.php');
 				<div id="graphImage"></div>
 			</div>
 			<div id="content">
-				<h1>Coxeter graph and invariants<span id="helpButton"><a href="#popupHelp"><img src="resources/help.png" /></a></span></h1>
+				<h1>Coxeter graph and invariants<div id="helpButton" title="Help"><a href="#popupHelp"><img src="resources/help.png" /></a></div></h1>
 			
 				<div id="graphRaw">dimension 4
 1 2 3
