@@ -103,6 +103,7 @@ var updateGraphTimeout = 1000;
 var editor = ace.edit("graphRaw");
 var timerEdit;
 editor.on("change", function() {
+	editorContentChanged = true;
 	clearTimeout( timerEdit );
 	timerEdit = setTimeout(updateGraph, updateGraphTimeout);
 	

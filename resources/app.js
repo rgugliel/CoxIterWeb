@@ -5,6 +5,9 @@ var dimension = 0;
 var result_CoxIter = "";
 var result_invariants = "";
 
+var runningComputation = false; // True if we are waiting for results to come back
+var editorContentChanged = true; // Changed since the last computations
+
 function updateGraph()
 {
 	removeChildren($("#invariantsList"));
@@ -157,6 +160,15 @@ function removeChildren($el)
 
 function computeInvariants()
 {
+	if (runningComputation)
+	{
+		alert("Please wait until the computations are finished");
+		return;
+	}
+	
+	if (!editorContentChanged) // No need to compute
+		return;
+	
 	// ------------------------------------------
 	// Graph
 	var strGraph = "";
@@ -181,6 +193,7 @@ function computeInvariants()
 	
 	// ------------------------------------------
 	// Let's go
+	runningComputation = true;
 	$.ajax({
 		url: "resources/computeInvariants.php",
 		type: "POST",
@@ -274,6 +287,8 @@ function computeInvariants()
 				result_invariants += "\nf(x)=C(" + $(result).find('numerator').text() + ")/(" +  $(result).find('denominator').text() + ")";
 				
 			$("#downloads").show(400);
+			runningComputation = false;
+			editorContentChanged = false;
 		},
 		error: function(errorData) { 
 			parsingError(-1, 'ajax');
