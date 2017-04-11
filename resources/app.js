@@ -202,6 +202,8 @@ function computeInvariants()
 		success: function(result) {
 			var temp;
 			
+			runningComputation = false;
+			
 			if ($(result).find('error').length)
 				return parsingError(-1, $(result).find('error').text());
 				
@@ -287,7 +289,6 @@ function computeInvariants()
 				result_invariants += "\nf(x)=C(" + $(result).find('numerator').text() + ")/(" +  $(result).find('denominator').text() + ")";
 				
 			$("#downloads").show(400);
-			runningComputation = false;
 			editorContentChanged = false;
 		},
 		error: function(errorData) { 
