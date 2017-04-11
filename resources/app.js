@@ -383,7 +383,7 @@ function parsingError(rowIndex, errorCode)
 	else if (errorCode ==  "graph empty")
 		strError += "Please give a graph";
 	else if (errorCode ==  "graph encoding")
-		strError += "Check the encoding of your graph; maybe the group is not of finite covolume";
+		strError += "Check the encoding of your graph; maybe the group is not hyperbolic or the specified dimension is incorrect";
 	else if (errorCode ==  "parse")
 		strError += "Unable to parse line";
 	else if (errorCode == "vertices maximal number")
