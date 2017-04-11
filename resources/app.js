@@ -188,6 +188,9 @@ function computeInvariants()
 			strGraph += (strGraph != "" ? ";" : "") + "[" + c + "," + strNeighbours + "]";
 	}
 	
+	if (strGraph == "")
+		return;
+	
 	removeChildren($("#invariantsList"));
 	result_invariants = "";
 	
