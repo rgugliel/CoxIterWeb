@@ -1,13 +1,16 @@
-var coxeterMatrix = [];
-var coxeterMatrixInitialized = [];
-var dimension = 0;
+var coxeterMatrix = []; ///< Coxeter matrix of the graph (with 0 parallel hyperplanes and 1 for ultra-parallel)
+var coxeterMatrixInitialized = []; ///< 1 or 0, depending whether the corresponding entry of coxeterMatrix has been set
+var dimension = 0; ///< Dimension of the space, 0 if not specified
 
 var result_CoxIter = "";
 var result_invariants = "";
 
-var runningComputation = false; // True if we are waiting for results to come back
-var editorContentChanged = true; // Changed since the last computations
+var runningComputation = false; ///< True if we are waiting for results to come back
+var editorContentChanged = true; ///< Changed since the last computations
 
+/*! \fn updateGraph
+ * 	\brief Update the svg image corresponding to the graph and check the user input
+ */
 function updateGraph()
 {
 	removeChildren($("#invariantsList"));
@@ -92,7 +95,7 @@ function updateGraph()
 	$("#graphParsingErrors").hide(400);
 	
 	if (verticesCount > 0)
-		drawGraph(verticesCount, indicesToLabels)
+		drawGraph(indicesToLabels)
 		
 	// -------------------------------------
 	// Updating CoxIter file
@@ -111,10 +114,17 @@ function updateGraph()
 	}
 }
 
-function drawGraph(verticesCount, indicesToLabels)
+/*! \fn drawGraph
+ * 	\brief Use viz.js to create the SVG image
+ * 
+ * 	\param indicesToLabels(unsigned int => string) Corespondence between vertices indices and their labels
+ */
+function drawGraph(indicesToLabels)
 {
 	var strGraph = "strict graph {";
 	var strSupp;
+	
+	verticesCount = coxeterMatrix.length;
 	
 	for (var r = 0; r < verticesCount; r++)
 	{
@@ -147,6 +157,11 @@ function drawGraph(verticesCount, indicesToLabels)
 	document.getElementById("graphImage").innerHTML = result;
 }
 
+/*! \fn removeChildren
+ * 	\brief Remove the children of a HTML entity
+ * 
+ * 	\param removeChildren(DOM element) The parent
+ */
 function removeChildren($el) 
 {
 	if ($el.children().length) 
@@ -158,6 +173,11 @@ function removeChildren($el)
 	}
 }
 
+/*! \fn computeInvariants
+ * 	\brief Compute the invariants of the group
+ * 
+ * 	Parsing the user input, sending the AJAX query, displaying the results
+ */
 function computeInvariants()
 {
 	if (runningComputation)
@@ -300,6 +320,11 @@ function computeInvariants()
 	});
 }
 
+/*! \fn download
+ * 	\brief Allows to download something as a file
+ * 
+ * 	\param source(string) The content to be downloaded
+ */
 function download(source)
 {
 	if (source != "coxiter" && source != "invariants")
@@ -365,6 +390,12 @@ function addEdge(vertex1, vertex2, weight)
 	return "";
 }
 
+/*! \fn parsingError
+ * 	\brief Display an error 
+ * 
+ * 	\param rowIndex(int) Index of the row (0 to editor.totalLines) which contains the error, -1 if not related to input
+ * 	\param errorCode(string) Error code
+ */
 function parsingError(rowIndex, errorCode)
 {
 	var strError = "";
