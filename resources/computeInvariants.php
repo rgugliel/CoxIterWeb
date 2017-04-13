@@ -10,6 +10,7 @@ function main()
 
 	$graph = isset($_POST['graph']) ? trim($_POST['graph']) : '';
 	$dimension = isset($_POST['dimension']) ? (int)$_POST['dimension'] : 0;
+	$defaultGraph = $graph == $config['defaultGraph'];
 	
 	if (empty($graph))
 		return '<error>graph empty</error>';
@@ -30,8 +31,16 @@ function main()
 			return '<error>graph format</error>';
 	}
 
+	$bTime = microtime(true);
 	exec('../' . $config['relativePathToExecutable'] . '/coxiterweb "' . $graph . ';dimension=' . $dimension . '"', $output);
+	$eTime = microtime(true);
+	
+	// ---------------------------------------
+	// Output and logging
 	echo implode("\n", $output);
+	@file_put_contents('../log/' . date('Y-m') . '.txt', 
+		date('d/m/Y H:m:i') . "\t\t" . $piecesCount . "\t\t" . ($eTime - $bTime) . ($defaultGraph ? "\t\tdefault" : '') . "\n", 
+		FILE_APPEND);
 }
 
 echo main();

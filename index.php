@@ -114,6 +114,15 @@ s0 s2 4</div>
 
 				You should have received a copy of the GNU General Public License<br />
 				along with CoxIter. If not, see <a hreh="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a><br /><br />
+				
+				<h3>Collected data</h3>
+				When computation are done, we save the following information:
+				<ul>
+					<li>date and time</li>
+					<li>number of vertices of the graph</li>
+					<li>duration of the computations</li>
+				</ul>
+				We do not save the graph you enter.
 			</div>
 		</div>
 	</div>
