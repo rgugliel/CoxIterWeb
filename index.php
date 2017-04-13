@@ -72,7 +72,7 @@ s0 s2 4</div>
 		</div>
 		<div id="content_footer"></div>
 		<div id="footer">
-			<p>Design: <a href="http://www.html5webtemplates.co.uk">shadowplay_2</a> | CoxIter: Rafael Guglielmetti </p>
+			<p>Design: <a href="http://www.html5webtemplates.co.uk">shadowplay_2</a> | CoxIter: Rafael Guglielmetti | <a href="#popupLicense">License</a></p>
 		</div>
 	</div>
 	
@@ -90,6 +90,30 @@ s0 s2 4</div>
 				</ul>
 				
 				Once you are done, click on the "Compute the invariants" button!
+			</div>
+		</div>
+	</div>
+	
+	<div id="popupLicense" class="overlay">
+		<div class="popup">
+			<h2>License and collected data</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				<h3>License</h3>
+				This file is part of <a href="https://github.com/rgugliel/CoxIterWeb">CoxIterWeb</a>, which is based on <a href="https://github.com/rgugliel/CoxIter">CoxIter</a>.<br /><br />
+
+				CoxIter is free software: you can redistribute it and/or modify<br />
+				it under the terms of the GNU General Public License as<br />
+				published by the Free Software Foundation, either version 3 of the<br />
+				License, or (at your option) any later version.<br /><br />
+
+				CoxIter is distributed in the hope that it will be useful,<br />
+				but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
+				MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the<br />
+				GNU General Public License for more details.<br />
+
+				You should have received a copy of the GNU General Public License<br />
+				along with CoxIter. If not, see <a hreh="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a><br /><br />
 			</div>
 		</div>
 	</div>
