@@ -238,7 +238,8 @@ ul#menu li a:hover
 
 #footer a
 { color: #A8AA94;
-  text-decoration: none;}
+  text-decoration: none;
+  border-bottom: none;}
 
 #footer a:hover
 { color: #FFF;
