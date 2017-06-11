@@ -17,6 +17,9 @@ Additional remarks:
 
 ## Install instructions
 * Download everything on your web server
+```
+git clone --recursive https://github.com/rgugliel/CoxIterWeb
+```
 * Eventually, move cpp/ outside the www/ folder
 * Configure the app in config/config.php and cpp/config.php
 * In cpp/build, do
