@@ -188,6 +188,8 @@ function computeInvariants()
 	
 	if (!editorContentChanged) // No need to compute
 		return;
+		
+	runningComputation = true;
 	
 	// ------------------------------------------
 	// Graph
@@ -208,15 +210,16 @@ function computeInvariants()
 			strGraph += (strGraph != "" ? ";" : "") + "[" + c + "," + strNeighbours + "]";
 	}
 	
-	if (strGraph == "")
+	if (strGraph == "") {
+		runningComputation = false;
 		return;
+	}
 	
 	removeChildren($("#invariantsList"));
 	result_invariants = "";
 	
 	// ------------------------------------------
 	// Let's go
-	runningComputation = true;
 	$.ajax({
 		url: "resources/computeInvariants.php",
 		type: "POST",
@@ -225,11 +228,11 @@ function computeInvariants()
 		success: function(result) {
 			var temp;
 			
-			runningComputation = false;
-			
-			if ($(result).find('error').length)
+			if ($(result).find('error').length) {
+				runningComputation = false;
 				return parsingError(-1, $(result).find('error').text());
-				
+			}
+			
 			if ($(result).find('dimensionGuessed').length)
 			{
 				$("#invariantsList").append('<li>Guessed dimension: ' + $(result).find('dimensionGuessed').text() + '</li>');
@@ -313,6 +316,7 @@ function computeInvariants()
 				
 			$("#downloads").show(400);
 			editorContentChanged = false;
+			runningComputation = false;
 		},
 		error: function(errorData) { 
 			parsingError(-1, 'ajax');
