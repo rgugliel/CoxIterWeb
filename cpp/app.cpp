@@ -113,13 +113,13 @@ bool App::addEdge(const unsigned int& iV1, const unsigned int&  iV2, const unsig
 CoxIter* App::doComputations()
 {
 	CoxIter* ci(new CoxIter(iCoxeterMatrix, iDimension));
-	ci->set_bCheckCofiniteness(true);
-	ci->set_bCheckCocompactness(true);
+	ci->set_checkCofiniteness(true);
+	ci->set_checkCocompactness(true);
 	
 	ci->exploreGraph();
 	ci->computeGraphsProducts();
 	
-	if (!ci->bEulerCharacteristicFVector())
+	if (!ci->computeEulerCharacteristicFVector())
 	{
 		strError = "graph encoding";
 		return ci;
@@ -129,8 +129,8 @@ CoxIter* App::doComputations()
 	ci->growthSeries();
 	#endif
 	
-	ci->isFiniteCovolume();
-	ci->iIsGraphCocompact();
+	ci->checkCovolumeFiniteness();
+	ci->isGraphCocompact();
 	
 	return ci;
 }

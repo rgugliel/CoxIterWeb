@@ -37,33 +37,33 @@ int main(int argc, char **argv)
 	
 	#ifdef _COMPILE_WITH_PARI_
 	GrowthRate_Result grr;
-	grr.bComputed = false;
-	grr.iPerron = -1;
-	grr.iPisot = -1;
-	grr.iSalem = -1;
+	grr.isComputed = false;
+	grr.perron = -1;
+	grr.pisot = -1;
+	grr.salem = -1;
 	#endif
 
 	CoxIter* ci(app.doComputations());
-	if (ci->get_strError() == "" && app.get_strError() == "")
+	if (ci->get_error() == "" && app.get_strError() == "")
 	{
-		unsigned int iDimension(ci->get_iDimension());
+		unsigned int iDimension(ci->get_dimension());
 		
-		cout << "<cofinite>" << ci->get_iIsFiniteCovolume() << "</cofinite>" << endl;
-		cout << "<cocompact>" << ci->get_iIsCocompact() << "</cocompact>" << endl;
+		cout << "<cofinite>" << ci->get_isFiniteCovolume() << "</cofinite>" << endl;
+		cout << "<cocompact>" << ci->get_isCocompact() << "</cocompact>" << endl;
 		cout << "<euler>" << ci->get_brEulerCaracteristic() << "</euler>" << endl;
 		
 		if (iDimension)
 		{
-			vector< unsigned int > iFVector(ci->get_iFVector());
+			vector< unsigned int > iFVector(ci->get_fVector());
 			
-			cout << "<vatinfinity>" << ci->get_iVerticesAtInfinityCount() << "</vatinfinity>" << endl;
+			cout << "<vatinfinity>" << ci->get_verticesAtInfinityCount() << "</vatinfinity>" << endl;
 			
 			cout << "<fvector>(";
 			for (unsigned int i( 0 ); i <= iDimension; i++)
 				cout << ( i ? ", " : "" ) << iFVector[i];
 			cout << ")</fvector>" << endl;
 			
-			if (!(iDimension % 2) && ci->get_iIsFiniteCovolume() == 1)
+			if (!(iDimension % 2) && ci->get_isFiniteCovolume() == 1)
 			{
 				MPZ_rational cov(( iDimension / 2 ) % 2 ? -1 : 1);
 				for (unsigned int i( 1 ); i <= iDimension; i++)
@@ -78,8 +78,8 @@ int main(int argc, char **argv)
 			}
 		}
 		
-		if (ci->get_bDimensionGuessed())
-			cout << "<dimensionGuessed>" << ci->get_iDimension() << "</dimensionGuessed>" << endl;
+		if (ci->get_dimensionGuessed())
+			cout << "<dimensionGuessed>" << ci->get_dimension() << "</dimensionGuessed>" << endl;
 			
 		// ---------------------------------------------------
 		// Growth series
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 		vector<mpz_class> iPolynomialDenominator;
 		bool bReduced;
 		
-		ci->get_iGrowthSeries(iCyclotomicNumerator, iPolynomialDenominator, bReduced);
+		ci->get_growthSeries(iCyclotomicNumerator, iPolynomialDenominator, bReduced);
 		cout << "<growthSeries>" << endl;
 		cout << "<isReduced>" << (bReduced ? "yes" : "no") << "</isReduced>" << endl;
 		cout << "<numerator>";
@@ -103,18 +103,18 @@ int main(int argc, char **argv)
 		// ---------------------------------------------------
 		// Growth rate
 		#ifdef _COMPILE_WITH_PARI_
-		if (ci->get_iIsFiniteCovolume() == 1)
+		if (ci->get_isFiniteCovolume() == 1)
 		{
 			GrowthRate gr;
-			grr = gr.grrComputations(ci->get_iGrowthSeries_denominator());
+			grr = gr.grrComputations(ci->get_growthSeries_denominator());
 			
-			if(grr.bComputed && ci->get_bGrowthSeriesReduced())
+			if(grr.isComputed && ci->get_isGrowthSeriesReduced())
 			{
 				cout << "<growthRate>" << endl;
-				cout << "<value>" << grr.strGrowthRate << "</value>" << endl;
-				cout << "<perron>" << ( grr.iPerron < 0 ? "?" : ( grr.iPerron > 0 ? "yes" : "no" ) ) << "</perron>" << endl;
-				cout << "<pisot>" << ( grr.iPisot < 0 ? "?" : ( grr.iPisot > 0 ? "yes" : "no" ) ) << "</pisot>" << endl;
-				cout << "<salem>" << ( grr.iSalem < 0 ? "?" : ( grr.iSalem > 0 ? "yes" : "no" ) ) << "</salem>" << endl;
+				cout << "<value>" << grr.growthRate << "</value>" << endl;
+				cout << "<perron>" << ( grr.perron < 0 ? "?" : ( grr.perron > 0 ? "yes" : "no" ) ) << "</perron>" << endl;
+				cout << "<pisot>" << ( grr.pisot < 0 ? "?" : ( grr.pisot > 0 ? "yes" : "no" ) ) << "</pisot>" << endl;
+				cout << "<salem>" << ( grr.salem < 0 ? "?" : ( grr.salem > 0 ? "yes" : "no" ) ) << "</salem>" << endl;
 				cout << "</growthRate>" << endl;
 			}
 		}
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		cout << "<error>" << (ci->get_strError() == "" ? app.get_strError() : ci->get_strError()) << "</error>" << endl;
+		cout << "<error>" << (ci->get_error() == "" ? app.get_strError() : ci->get_error()) << "</error>" << endl;
 		delete ci;
 		return 0;
 	}
